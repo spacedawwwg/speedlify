@@ -1,0 +1,86 @@
+const client = require('../../utils/client');
+
+module.exports = async function () {
+  const query = /* groq */ `*[_type == "location"] { url, "region": region[0]._ref }`;
+  const response = await client.fetch(query);
+
+  let urls = response.map((publication) => publication.url).filter((u) => u);
+
+  const groups = response.reduce((groups, item) => ({
+    ...groups,
+    [item.region]: [...(groups[item.region] || []), item.url]
+  }), {});
+  
+
+  console.log(JSON.stringify(groups, null, 2));
+
+  return {
+    name: 'uol',
+    description: 'UOL',
+    options: {
+      frequency: 60 * 5.5,
+      skip: false,
+      estimatedTimePerBuild: 0.05,
+      freshChrome: 'run',
+    },
+    urls: [
+      'https://www.seac.unilever.com',
+      'https://www.unilever.ro',
+      'https://hive.unilever.com',
+      'https://www.hul.co.in',
+      'https://www.seac.unilever.com',
+      'https://www.unilever.be',
+      'https://www.unilever.be/fr',
+      'https://www.unilever.ca',
+      'https://www.unilever.ca/fr',
+      'https://www.unilever.co.id',
+      'https://www.unilever.co.il',
+      'https://www.unilever.co.jp',
+      'https://www.unilever.co.kr',
+      'https://www.unilever.com',
+      'https://www.unilever.com.au',
+      'https://www.unilever.com.bd',
+      'https://www.unilever.com.br',
+      'https://www.unilever.com.cn',
+      'https://www.unilever.com.hk',
+      'https://www.unilever.com.lk',
+      'https://www.unilever.com.my',
+      'https://www.unilevernepal.com',
+      'https://www.unilever.com.ph',
+      'https://www.unilever.com.sg',
+      'https://www.unilever.com.tr',
+      'https://www.unilever.com.tw',
+      'https://www.unilever.com.vn',
+      'https://www.unilever.co.th',
+      'https://www.unilever.co.uk',
+      'https://www.unilever.co.za',
+      'https://www.unilever.cz',
+      'https://www.unilever.de',
+      'https://www.unilever.dk',
+      'https://www.unilever.es',
+      'https://www.unilever-ewa.com',
+      'https://www.unilever.fi',
+      'https://www.unilever-fima.com',
+      'https://www.unilever.fr',
+      'https://www.unilever.gr',
+      'https://www.unilever.hu',
+      'https://www.unilever.it',
+      'https://www.unilevermaghreb.com',
+      'https://corporate-unilever-market-lite-qa.unileverstatic.com',
+      'https://www.unileverme.com',
+      'https://www.unilever.nl',
+      'https://www.unilever-northlatam.com',
+      'https://www.unilever-northlatam.com/en',
+      'https://www.unilever.pk',
+      'https://www.unilever.pl',
+      'https://playbook.unileverstatic.com',
+      'https://www.unilever.ro',
+      'https://www.unilever.ru',
+      'https://www.unilever.se',
+      'https://www.unilever.sk',
+      'https://www.unilever-southlatam.com',
+      'https://www.unilever.ua',
+      'https://www.unileverusa.com',
+    ],
+  };
+};

@@ -5,10 +5,10 @@ const shortHash = require("short-hash");
 const fastglob = require("fast-glob");
 const PerfLeaderboard = require("performance-leaderboard");
 
-const NUMBER_OF_RUNS = 3;
+const NUMBER_OF_RUNS = 2;
 const FREQUENCY = 60; // in minutes
 const NETLIFY_MAX_LIMIT = 15; // in minutes, netlify limit
-const ESTIMATED_MAX_TIME_PER_TEST = 0.75; // in minutes, estimate based on looking at past builds
+const ESTIMATED_MAX_TIME_PER_TEST = 0.5; // in minutes, estimate based on looking at past builds
 
 const prettyTime = (seconds) => {
 	// Based on https://johnresig.com/blog/javascript-pretty-date/
